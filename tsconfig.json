@@ -3,8 +3,14 @@
     "target": "es2016",
     "module": "commonjs",
     "moduleResolution": "node10",
-    "baseUrl": "src",
-    "paths": {},
+    "baseUrl": "src/",
+    "paths": {
+      "@controllers": ["./controllers/index"],
+      "@models": ["models/index"],
+      "@routes": ["/routes/index"],
+      "@utils": ["utils/index"],
+      "@helpers": ["helpers/index"]
+    },
     "sourceMap": true,
     "outDir": "dist",
     "esModuleInterop": true,
