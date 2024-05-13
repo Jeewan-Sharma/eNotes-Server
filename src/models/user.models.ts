@@ -6,6 +6,10 @@ const UserSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
+    username: {
+        type: String,
+        required: true,
+    },
     authentication: {
         type: {
             password: { type: String, required: true, select: false },
@@ -32,4 +36,4 @@ export const createUser = (values: Record<string, any>) => new UserModel(values)
 
 export const deleteUserById = (id: string) => UserModel.findByIdAndDelete(id);
 
-export const updateUserById = (id: string, values: Record<string, any>) => UserModel.findByIdAndUpdate(id, values);
+// export const updateUserById = (id: string, values: Record<string, any>) => UserModel.findByIdAndUpdate(id, values);
