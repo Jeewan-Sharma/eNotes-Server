@@ -9,6 +9,8 @@ import morgan from 'morgan';
 import dotenv from 'dotenv'
 import mongoose from 'mongoose';
 
+import router from './routes';
+
 // Creating Application
 const app = express();
 
@@ -33,6 +35,8 @@ server.listen(PORT, () => {
     db_connect();
     console.log(`Server listening on port http://localhost:${PORT}`)
 })
+
+app.use('/', router())
 
 const db_connect = async () => {
     try {
