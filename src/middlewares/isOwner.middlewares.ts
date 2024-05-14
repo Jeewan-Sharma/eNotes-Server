@@ -5,7 +5,6 @@ export const isOwner = async (req: Request, res: Response, next: NextFunction) =
     try {
         const { id } = req.params;
         const currentUserId = get(req, 'identity._id') as string | undefined;
-        console.log()
         if (!currentUserId) {
             return res.sendStatus(403);
         };
