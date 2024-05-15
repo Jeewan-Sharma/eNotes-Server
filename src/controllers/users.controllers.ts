@@ -14,8 +14,8 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
 export const getUser = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
-        const user = await getUserById(id);
+        const { userId } = req.params;
+        const user = await getUserById(userId);
         if (!user) {
             return res.status(400).json({ "message": "User Id not matched" });
         }
@@ -28,12 +28,12 @@ export const getUser = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
+        const { userId } = req.params;
         const { newUsername } = req.body;
         if (!newUsername) {
             return res.status(400).json({ "message": "new Username required" });
         }
-        const user = await getUserById(id);
+        const user = await getUserById(userId);
         if (!user) {
             return res.status(400).json({ "message": "User Id not matched" });
         }
@@ -48,8 +48,8 @@ export const updateUser = async (req: Request, res: Response) => {
 
 export const deleteUser = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
-        const user = await deleteUserById(id);
+        const { userId } = req.params;
+        const user = await deleteUserById(userId);
         return res.status(200).json(user).end();
     } catch (err) {
         console.log(err);
@@ -58,12 +58,12 @@ export const deleteUser = async (req: Request, res: Response) => {
 }
 
 export const changePassword = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const { userId } = req.params;
     const { oldPassword, newPassword } = req.body;
     if (!oldPassword || !newPassword) {
         return res.status(400).json({ "message": "Old and New Passwords are required" });
     }
-    const user = await getUserById(id).select('+authentication.salt +authentication.password');
+    const user = await getUserById(userId).select('+authentication.salt +authentication.password');
     if (!user) {
         return res.status(400).json({ "message": "User is not registered" });
     }

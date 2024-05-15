@@ -1,13 +1,11 @@
 import { Router } from 'express';
 
-import { getNotes, createNote } from '../controllers';
-import { isAuthenticated } from '../middlewares'
+import { getNotes, createNote, updateNote, deleteNote } from '../controllers';
+import { isAuthenticated, isOwner } from '../middlewares'
 
 export default (router: Router) => {
     router.post('/notes', isAuthenticated, createNote);
-    router.get('/notes', isAuthenticated, getNotes);
-    // router.get('/user/:id', isAuthenticated, getUser);
-    // router.delete('/user/:id', isAuthenticated, deleteUser);
-    // router.patch('/user/:id', isAuthenticated, updateUser);
-    // router.patch('/user/change-password/:id', isAuthenticated, changePassword);
+    router.get('/notes/:userId', isAuthenticated, isOwner, getNotes);
+    router.patch('/note/:noteId', isAuthenticated, updateNote);
+    router.delete('/note/:noteId', isAuthenticated, deleteNote);
 };
