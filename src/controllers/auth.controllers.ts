@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getUserByEmail, createUser } from '../models/user.models';
+import { getUserByEmail, createUser } from '../models/';
 import { authentication, random } from '../helpers';
 
 export const login = async (req: Request, res: Response) => {
@@ -52,3 +52,4 @@ export const register = async (req: Request, res: Response) => {
         return res.sendStatus(400);
     };
 };
+

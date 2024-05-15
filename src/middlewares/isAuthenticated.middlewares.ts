@@ -12,7 +12,7 @@ export const isAuthenticated = async (req: Request, res: Response, next: NextFun
         const existingUser = await getUserBySessionToken(sessionToken);
 
         if (!existingUser) {
-            return res.status(403).json({ "message": "Token mismatched" });
+            return res.status(403).json({ "message": "User Token mismatched" });
         };
         merge(req, { identity: existingUser });
         return next();
