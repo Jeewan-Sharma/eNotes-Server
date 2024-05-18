@@ -19,7 +19,11 @@ export const login = async (req: Request, res: Response) => {
         const salt = random();
         user.authentication.sessionToken = authentication(salt, user._id.toString());
         await user.save()
-        res.cookie('eNotes-cookie', user.authentication.sessionToken, { domain: 'localhost', path: '/' });
+        res.cookie('eNotes-cookie', user.authentication.sessionToken, {
+            path: '/',
+            httpOnly: true,
+            secure: true,
+        });
         return res.status(200).json(user).end();
     } catch (err) {
         console.log(err);
