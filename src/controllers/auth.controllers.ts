@@ -19,7 +19,7 @@ export const login = async (req: Request, res: Response) => {
         const salt = random();
         user.authentication.sessionToken = authentication(salt, user._id.toString());
         await user.save()
-        const production = process.env.PRODUCTION;
+        const production = process.env.PRODUCTION === 'true';
         res.cookie('eNotes-cookie', user.authentication.sessionToken, {
             path: '/',
             httpOnly: true,
