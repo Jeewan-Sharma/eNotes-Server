@@ -20,11 +20,13 @@ export const login = async (req: Request, res: Response) => {
         user.authentication.sessionToken = authentication(salt, user._id.toString());
         await user.save()
         const production = process.env.PRODUCTION === 'true';
+        let expiryDate: Date = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
         res.cookie('eNotes-cookie', user.authentication.sessionToken, {
             path: '/',
             httpOnly: true,
             secure: production ? true : false,
             sameSite: 'none',
+            expires: expiryDate,
         });
         return res.status(200).json(user).end();
     } catch (err) {
