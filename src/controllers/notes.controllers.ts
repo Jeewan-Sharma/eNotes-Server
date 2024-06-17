@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { get } from 'lodash';
 
-import { CreateNotes, DeleteNoteById, GetNoteById, GetNotes } from '../models/';
+import { CreateNotes, DeleteNoteById, GetImportantNotes, GetNoteById, GetNotes, GetNotesByTag, GetTagsByUserId, SearchNotes } from '../models/';
 
 export const createNote = async (req: Request, res: Response) => {
     try {
@@ -72,7 +72,7 @@ export const setNoteImportance = async (req: Request, res: Response) => {
     try {
         const { noteId } = req.params;
         const { isImportant } = req.body;
-        if (!isImportant) {
+        if (isImportant === undefined) {
             return res.status(400).json({ "message": "Incomplete Information" });
         }
         const note = await GetNoteById(noteId);
@@ -115,4 +115,56 @@ export const deleteNote = async (req: Request, res: Response) => {
         console.log(err);
         return res.sendStatus(400);
     };
+}
+
+export const getImportantNotes = async (req: Request, res: Response) => {
+    try {
+        const { userId } = req.params;
+        const notes = await GetImportantNotes(userId);
+        return res.status(200).json(notes).end();
+    } catch (err) {
+        console.log(err)
+        return res.sendStatus(400);
+    }
+}
+
+export const getNotesTags = async (req: Request, res: Response) => {
+    try {
+        const { userId } = req.params;
+        const tags = await GetTagsByUserId(userId);
+        return res.status(200).json(tags).end();
+    } catch (err) {
+        console.log(err)
+        return res.sendStatus(400);
+    }
+}
+
+export const getNotesByTag = async (req: Request, res: Response) => {
+    try {
+        const { userId } = req.params;
+        const { tag } = req.body;
+        if (!tag) {
+            return res.status(400).json({ "message": "Incomplete Information" })
+        }
+        const notes = await GetNotesByTag(userId, tag);
+        return res.status(200).json(notes).end();
+    } catch (err) {
+        console.log(err)
+        return res.sendStatus(400);
+    }
+}
+
+export const searchNotes = async (req: Request, res: Response) => {
+    try {
+        const { userId } = req.params;
+        const { keyword } = req.body;
+        if (!keyword) {
+            return res.status(400).json({ "message": "Incomplete Information" })
+        }
+        const notes = await SearchNotes(userId, keyword);
+        return res.status(200).json(notes).end();
+    } catch (err) {
+        console.log(err)
+        return res.sendStatus(400);
+    }
 }

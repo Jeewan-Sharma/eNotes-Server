@@ -53,14 +53,14 @@
 
 9. Get All Notes = GET: '/notes/:userId',
 
-10. Update Note = PATCH: './note/:noteId',
+10. Update Note = PUT: './note/:noteId',
     request: {
     title: string,
     description: string,
     tags: [string]
     }
 
-11. set Importance = PATCH: './note/set-importance/:noteId'
+11. set Importance = PUT: './note/set-importance/:noteId'
     request: {
     isImportant: boolean
     }

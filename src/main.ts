@@ -17,7 +17,7 @@ const app = express();
 // Using Middlewares
 app.use(helmet());
 app.use(cors({
-    origin: process.env.FRONT_END_ORIGIN,
+    origin: 'http://localhost:4200',
     credentials: true,
 }));
 app.use(morgan("short"));
