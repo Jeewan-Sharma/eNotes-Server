@@ -16,8 +16,9 @@ const app = express();
 
 // Using Middlewares
 app.use(helmet());
+// origin: 'http://localhost:4200',
 app.use(cors({
-    origin: 'http://localhost:4200',
+    origin: 'https://cushynotes.vercel.app/',
     credentials: true,
 }));
 app.use(morgan("short"));

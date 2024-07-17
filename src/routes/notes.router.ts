@@ -8,7 +8,7 @@ export default (router: Router) => {
     router.get('/notes/important/:userId', isAuthenticated, isOwner, getImportantNotes);
     router.get('/notes/tags/:userId', isAuthenticated, isOwner, getNotesTags);
     router.post('/notes/notes-by-tag/:userId', isAuthenticated, isOwner, getNotesByTag);
-    router.get('/notes/search/:userId', isAuthenticated, isOwner, searchNotes);
+    router.post('/notes/search/:userId', isAuthenticated, isOwner, searchNotes);
     router.post('/notes', isAuthenticated, createNote);
     router.put('/note/:noteId', isAuthenticated, updateNote);
     router.put('/note/set-importance/:noteId', isAuthenticated, setNoteImportance);
