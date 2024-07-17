@@ -12,11 +12,12 @@ const UserSchema = new mongoose.Schema({
     },
     authentication: {
         type: {
-            password: { type: String, required: true, select: false },
-            salt: { type: String, required: true, select: false },
-            sessionToken: { type: String, select: false },
+            password: { type: String, required: true },
+            salt: { type: String, required: true },
+            sessionToken: { type: String },
         },
         required: true,
+        select: false
     }
 });
 

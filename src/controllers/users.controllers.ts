@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { get } from 'lodash';
 import { deleteUserById, getUserById, getUsers } from '../models';
 import { authentication } from '../helpers';
 
@@ -14,7 +15,10 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
 export const getUser = async (req: Request, res: Response) => {
     try {
-        const { userId } = req.params;
+        const userId = get(req, 'identity._id') as string | undefined;
+        if (!userId) {
+            return res.sendStatus(403);
+        };
         const user = await getUserById(userId);
         if (!user) {
             return res.status(400).json({ "message": "User Id not matched" });
@@ -63,7 +67,7 @@ export const changePassword = async (req: Request, res: Response) => {
     if (!oldPassword || !newPassword) {
         return res.status(400).json({ "message": "Old and New Passwords are required" });
     }
-    const user = await getUserById(userId).select('+authentication.salt +authentication.password');
+    const user = await getUserById(userId).select('+authentication');
     if (!user) {
         return res.status(400).json({ "message": "User is not registered" });
     }

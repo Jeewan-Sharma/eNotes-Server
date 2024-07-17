@@ -5,7 +5,7 @@ import { isAuthenticated, isOwner } from '../middlewares'
 
 export default (router: Router) => {
     router.get('/users', isAuthenticated, getAllUsers);
-    router.get('/user/:userId', isAuthenticated, getUser);
+    router.get('/user', isAuthenticated, getUser);
     router.delete('/user/:userId', isAuthenticated, isOwner, deleteUser);
     router.patch('/user/:userId', isAuthenticated, isOwner, updateUser);
     router.patch('/user/change-password/:userId', isAuthenticated, isOwner, changePassword);

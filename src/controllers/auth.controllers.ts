@@ -8,7 +8,7 @@ export const login = async (req: Request, res: Response) => {
         if (!email || !password) {
             return res.status(400).json({ "message": "Email or Password is required" });
         }
-        const user = await getUserByEmail(email).select('+authentication.salt +authentication.password');
+        const user = await getUserByEmail(email).select('+authentication');
         if (!user) {
             return res.status(400).json({ "message": "User is not registered" });
         }
