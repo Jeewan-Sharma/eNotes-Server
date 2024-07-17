@@ -18,7 +18,7 @@ const app = express();
 app.use(helmet());
 // origin: 'http://localhost:4200',
 app.use(cors({
-    origin: 'https://cushynotes.vercel.app/',
+    origin: /https:\/\/cushynotes\.vercel\.app(\/.*)?/,
     credentials: true,
 }));
 app.use(morgan("short"));
