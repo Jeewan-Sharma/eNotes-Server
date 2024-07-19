@@ -61,3 +61,18 @@ export const register = async (req: Request, res: Response) => {
     };
 };
 
+export const logout = async (req: Request, res: Response) => {
+    try {
+        const production = process.env.PRODUCTION === 'true';
+        res.cookie('eNotes-cookie', '', {
+            path: '/',
+            httpOnly: true,
+            secure: production ? true : false,
+            sameSite: 'none',
+        });
+        return res.status(200).end();
+    } catch (err) {
+        console.log(err);
+        return res.sendStatus(400)
+    };
+};
